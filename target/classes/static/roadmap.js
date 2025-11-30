@@ -1,15 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // ==========================================
-    // ЧАСТЬ 1. ЛОГИКА РОАДМЕПА
-    // ==========================================
 
     const roadmapData = [
         {
             id: 1,
             title: "HTML5 & Семантика",
             duration: "2 недели",
-            status: "done", 
+            status: "done",
             description: "Глубокое погружение в семантическую верстку, доступность (a11y) и SEO-оптимизацию структуры документа. Разбор новых тегов HTML5.",
             btnText: "Повторить материал"
         },
@@ -57,15 +53,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let activeIndex = 0;
 
+    if (actionBtn) {
+        actionBtn.addEventListener('click', () => {
+            // Переходим на страницу курса только если кнопка не заблокирована
+            // (хотя disabled атрибут и так не даст кликнуть, это доп. проверка)
+            const currentStep = roadmapData[activeIndex];
+            if (currentStep.status !== 'locked') {
+                window.location.href = 'course.html';
+            }
+        });
+    }
+
     function renderDots() {
         if (!stepsContainer) return;
-        stepsContainer.innerHTML = ''; 
-        
+        stepsContainer.innerHTML = '';
+
         roadmapData.forEach((step, index) => {
             const dot = document.createElement('div');
             dot.classList.add('step-dot');
             dot.textContent = index + 1;
-            
+
             if (index === activeIndex) {
                 dot.classList.add('active');
             } else if (step.status === 'done') {
@@ -78,10 +85,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleDotClick(index) {
-        if (index === activeIndex) return; 
+        if (index === activeIndex) return;
 
         activeIndex = index;
-        renderDots(); 
+        renderDots();
 
         contentArea.classList.add('fade-out');
 
@@ -97,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
         durationEl.textContent = `⏱ ${data.duration}`;
         actionBtn.textContent = data.btnText;
 
-        statusEl.className = 'badge status-badge'; 
+        statusEl.className = 'badge status-badge';
         if (data.status === 'done') {
             statusEl.textContent = 'Завершено';
             statusEl.classList.add('done');
@@ -114,12 +121,11 @@ document.addEventListener('DOMContentLoaded', () => {
             actionBtn.style.cursor = 'not-allowed';
             return;
         }
-        
+
         actionBtn.style.opacity = '1';
         actionBtn.style.cursor = 'pointer';
     }
 
-    // Инициализация Роадмепа
     const currentStepIndex = roadmapData.findIndex(s => s.status === 'in-progress');
     activeIndex = currentStepIndex !== -1 ? currentStepIndex : 0;
 
@@ -129,39 +135,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // ==========================================
-    // ЧАСТЬ 2. HERO PARALLAX EFFECT 
-    // ==========================================
-    
     const heroSection = document.querySelector('.hero-visual');
     const codeWindow = document.querySelector('.code-editor-window');
 
     if (heroSection && codeWindow) {
-        // Слушаем движение мыши по всему документу
         document.addEventListener('mousemove', (e) => {
-            // Если экран узкий (мобилка), отключаем эффект для производительности
             if (window.innerWidth < 768) return;
 
-            // Вычисляем центр экрана
             const centerX = window.innerWidth / 2;
             const centerY = window.innerHeight / 2;
 
-            // Получаем координаты мыши относительно центра
-            // Делим на коэффициент (например, 40), чтобы движение было мягким, а не резким
-            const moveX = (e.clientX - centerX) / 40; 
+            const moveX = (e.clientX - centerX) / 40;
             const moveY = (e.clientY - centerY) / 40;
 
-            // Применяем трансформацию:
-            // rotateY отвечает за поворот влево-вправо (зависит от X мыши)
-            // rotateX отвечает за наклон вверх-вниз (зависит от Y мыши, инвертируем знак)
-            
-            // Важно: мы сохраняем перспективу, заданную в CSS
             codeWindow.style.transform = `rotateX(${-moveY}deg) rotateY(${moveX}deg)`;
         });
 
-        // Сброс позиции, когда мышь уходит (опционально, но красиво)
         document.addEventListener('mouseleave', () => {
-             codeWindow.style.transform = `rotateX(5deg) rotateY(-2deg)`; // Возврат к дефолту
+            codeWindow.style.transform = `rotateX(5deg) rotateY(-2deg)`;
         });
     }
 });

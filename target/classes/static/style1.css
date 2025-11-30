@@ -1,9 +1,8 @@
-/* --- 1. Основные настройки и переменные --- */
+
 :root {
-    --bg-dark: #051429;      /* Темно-синий фон страницы */
-    --card-bg: #ffffff;      /* Белый фон карточки */
-    --orange-primary: #e37e35; /* Цвет кнопки */
-    --orange-hover: #d36d25;
+    --bg-dark: #051429;
+    --card-bg: #ffffff;
+    --orange-primary: #e37e35;
     --text-main: #333333;
     --text-secondary: #666666;
     --border-color: #d1d1d1;
@@ -22,10 +21,9 @@
 body {
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     background-color: var(--bg-dark);
-    /* Сложный фон имитирующий микросхемы/линии */
-    background-image: 
-        radial-gradient(circle at 50% 20%, rgba(20, 60, 100, 0.5) 0%, transparent 60%),
-        repeating-linear-gradient(45deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.01) 1px, transparent 1px, transparent 40px);
+    background-image:
+            radial-gradient(circle at 50% 20%, rgba(20, 60, 100, 0.5) 0%, transparent 60%),
+            repeating-linear-gradient(45deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.01) 1px, transparent 1px, transparent 40px);
     color: var(--text-main);
     min-height: 100vh;
     display: flex;
@@ -33,7 +31,6 @@ body {
     align-items: center;
 }
 
-/* --- 2. Хедер --- */
 header {
     width: 100%;
     height: 70px;
@@ -82,7 +79,7 @@ nav a {
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
-    padding: 24px 0; /* Чтобы линия была внизу хедера */
+    padding: 24px 0;
     position: relative;
     transition: color 0.3s;
 }
@@ -93,7 +90,6 @@ nav a.active {
     color: white;
 }
 
-/* Линия под активной вкладкой */
 nav a.active::after {
     content: '';
     position: absolute;
@@ -117,10 +113,9 @@ nav a.active::after {
     border-radius: 50%;
 }
 
-/* --- 3. Секция с кодом (Hero) --- */
 .hero-container {
     margin-top: 100px;
-    margin-bottom: -60px; /* Чтобы карточка наехала на код */
+    margin-bottom: -60px;
     position: relative;
     z-index: 1;
     width: 100%;
@@ -128,7 +123,6 @@ nav a.active::after {
     justify-content: center;
 }
 
-/* Стилизация блока кода (Glassmorphism) */
 .code-window {
     width: 700px;
     background: rgba(18, 32, 56, 0.6);
@@ -146,7 +140,6 @@ nav a.active::after {
     overflow: hidden;
 }
 
-/* Эффект свечения */
 .code-window::before {
     content: '';
     position: absolute;
@@ -158,20 +151,19 @@ nav a.active::after {
     pointer-events: none;
 }
 
-/* Подсветка синтаксиса */
-.kwd { color: #c678dd; } /* violet */
-.func { color: #61afef; } /* blue */
-.str { color: #d19a66; } /* orange/brown */
-.var { color: #e06c75; } /* red */
+.kwd { color: #c678dd; }
+.func { color: #61afef; }
+.str { color: #d19a66; }
+.var { color: #e06c75; }
 .prop { color: #d19a66; }
 .comment { color: #5c6370; font-style: italic; }
-.token { color: #56b6c2; } /* cyan */
+.token { color: #56b6c2; }
 
-/* --- 4. Основная карточка (Белая) --- */
 .main-card {
     background-color: var(--card-bg);
     width: 90%;
     max-width: 960px;
+    margin-top: 100px;
     border-radius: 24px;
     padding: 40px;
     position: relative;
@@ -187,7 +179,6 @@ nav a.active::after {
     display: block;
 }
 
-/* Блок видео и презентации (Split view) */
 .media-block {
     display: flex;
     border: 1px solid #eee;
@@ -203,10 +194,16 @@ nav a.active::after {
     background: #000;
     position: relative;
     min-height: 300px;
-    /* Заглушка */
-    background-image: url('https://placehold.co/600x400/333/999?text=Video+Player');
-    background-size: cover;
-    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.video-side img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
 }
 
 .video-caption {
@@ -239,7 +236,7 @@ nav a.active::after {
     display: flex;
     gap: 12px;
     margin-bottom: 15px;
-    background: #fff; 
+    background: #fff;
     padding: 10px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.03);
@@ -266,7 +263,6 @@ nav a.active::after {
     line-height: 1.4;
 }
 
-/* Поля ввода (Input fields) */
 .input-group {
     margin-bottom: 30px;
 }
@@ -300,7 +296,6 @@ nav a.active::after {
     background-color: #fff;
 }
 
-/* Контейнер решения с футером */
 .solution-container {
     border: 1px solid var(--border-color);
     border-radius: 12px;
@@ -327,7 +322,6 @@ nav a.active::after {
     border-top: 1px solid #eee;
 }
 
-/* Кнопка скрепки */
 .attach-btn {
     display: flex;
     align-items: center;
@@ -338,25 +332,31 @@ nav a.active::after {
     font-weight: 500;
 }
 
-/* Кнопка Отправить */
-.submit-btn {
-    background-color: var(--orange-primary);
-    color: white;
+.attach-btn img {
+    width: 16px;
+    height: 16px;
+    opacity: 0.7;
+    object-fit: contain;
+}
+
+.image-submit-btn {
     border: none;
-    padding: 10px 32px;
-    border-radius: 8px;
-    font-size: 15px;
+    background: transparent;
     cursor: pointer;
-    box-shadow: 0 4px 6px rgba(227, 126, 53, 0.3);
-    transition: background 0.2s, transform 0.1s;
+    padding: 0;
+    display: block;
+    transition: transform 0.1s;
 }
 
-.submit-btn:hover {
-    background-color: var(--orange-hover);
-}
-
-.submit-btn:active {
+.image-submit-btn:active {
     transform: translateY(1px);
+}
+
+
+.image-submit-btn img {
+    height: 40px;
+    width: auto;
+    display: block;
 }
 
 .comments-area {
